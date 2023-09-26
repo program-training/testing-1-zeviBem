@@ -1,29 +1,27 @@
-// export function fibo(arr: number[]) {
-//     if (arr.length >= 3) {
-//         for (let i = 0; i < arr.length; i++) {
-//             if (arr[i] + arr[i+1] === arr[i+2]) {
-//                 continue
-//             }
-//             return arr.push(arr[i]+arr[i-1])
-//         }
-        
-//     }
-//     else {
-//         return 'this is not a fibonathi arrey'
-//     }
-// }
-export function fibo(arr: number[]): number[] | string {
-    if (arr.length < 2) {
-      return 'this is not a fibonacci array';
+export function isFibonacciArray(arr: number[]): boolean {
+    if (arr.length < 3) {
+      throw new Error(
+        "Input array must have at least 3 numbers to check if it's a Fibonacci sequence."
+      );
     }
-  
     for (let i = 2; i < arr.length; i++) {
       if (arr[i] !== arr[i - 1] + arr[i - 2]) {
-        return 'this is not a fibonacci array';
+        throw new Error("Input array  it's not a Fibonacci sequence.");
       }
     }
-  
-    return [...arr, arr[arr.length - 1] + arr[arr.length - 2]];
+    return true;
   }
-       
+  
+  export function nextFibonacciNumber(arr: number[]): number {
+    if (isFibonacciArray(arr)) {
+      const len = arr.length;
+      const nextNumber = arr[len - 1] + arr[len - 2];
+      arr.push(nextNumber);
+      return nextNumber;
+    } else {
+      throw new Error(
+        "Input array must be a Fibonacci sequence to calculate the next Fibonacci number."
+      );
+    }
+  }
     
